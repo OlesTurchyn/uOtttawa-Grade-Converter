@@ -21,7 +21,7 @@
       }
 
       .container {
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto;
         background: white;
         border-radius: 16px;
@@ -94,6 +94,17 @@
 
       .credit-input {
         width: 80px;
+        padding: 10px 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 6px;
+        font-size: 16px;
+        text-align: center;
+        background: white;
+        transition: border-color 0.2s ease;
+      }
+
+      .course-name {
+        width: 200px;
         padding: 10px 12px;
         border: 2px solid #e9ecef;
         border-radius: 6px;
@@ -253,6 +264,8 @@
                   </option>
                 </select>
 
+                <input class="course-name" placeholder="Course name" />
+
                 <input
                   type="number"
                   v-model.number="grade.credits"
@@ -290,13 +303,14 @@
             Add some grades above to see your converted GPA
           </div>
         </div>
-      </div>
-
-      <div class="footer">
-        <p>
-          Made in 🇨🇦 by
-          <a href="https://www.olesturchyn.com" target="_blank">Oles Turchyn</a>
-        </p>
+        <div class="footer">
+          <p>
+            Made in 🇨🇦 by
+            <a href="https://www.olesturchyn.com" target="_blank"
+              >Oles Turchyn</a
+            >
+          </p>
+        </div>
       </div>
     </div>
 
