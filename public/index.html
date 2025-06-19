@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>uOttawa GPA Converter</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
     <style>
       * {
@@ -15,7 +16,8 @@
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        background-color: #6b0000;
+
         min-height: 100vh;
         padding: 20px;
       }
@@ -24,13 +26,12 @@
         max-width: 1200px;
         margin: 0 auto;
         background: white;
-        border-radius: 16px;
+        border-radius: 6px;
         box-shadow: 0 8px 32px rgba(139, 69, 19, 0.1);
         overflow: hidden;
       }
 
       .header {
-        background: linear-gradient(135deg, #8f001a 0%, #8f001a 100%);
         color: white;
         padding: 32px 24px;
         text-align: center;
@@ -42,9 +43,22 @@
         margin-bottom: 8px;
       }
 
+      .header h3 {
+        font-size: 25px;
+        color: rgb(202, 202, 202);
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
       .header p {
         opacity: 0.9;
         font-size: 16px;
+      }
+
+      p {
+        color: #6c757d;
+
+        margin-bottom: 10px;
       }
 
       .content {
@@ -64,6 +78,7 @@
 
       .grade-row {
         display: flex;
+        flex-wrap: nowrap;
         align-items: center;
         gap: 12px;
         margin-bottom: 12px;
@@ -71,14 +86,17 @@
         background: #f8f9fa;
         border-radius: 8px;
         transition: all 0.2s ease;
+        overflow-x: auto;
       }
 
-      .grade-row:hover {
-        background: #f1f3f4;
+      .grade-select,
+      .credit-input,
+      .course-name {
+        flex: 1 1 auto;
+        min-width: 100px;
       }
 
       .grade-select {
-        flex: 1;
         padding: 10px 12px;
         border: 2px solid #e9ecef;
         border-radius: 6px;
@@ -93,7 +111,6 @@
       }
 
       .credit-input {
-        width: 80px;
         padding: 10px 12px;
         border: 2px solid #e9ecef;
         border-radius: 6px;
@@ -104,8 +121,7 @@
       }
 
       .course-name {
-        width: 200px;
-        padding: 10px 12px;
+        padding: 10px 10px;
         border: 2px solid #e9ecef;
         border-radius: 6px;
         font-size: 16px;
@@ -217,34 +233,28 @@
         margin: 25px;
         width: 100%;
       }
-
-      @media (max-width: 640px) {
-        .grade-row {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        .credit-input {
-          width: 100%;
-        }
-
-        .gpa-value {
-          font-size: 36px;
-        }
-      }
     </style>
   </head>
   <body>
     <div id="app">
-      <div class="container">
-        <div class="header">
-          <h1>uOttawa GPA Converter</h1>
-          <p>Convert your uOttawa grades to the US 4.0 GPA scale</p>
-        </div>
+      <div class="header">
+        <h1>uOttawa GPA Converter</h1>
+        <h3>Convert your uOttawa grades to the US standard 4.0 GPA scale</h3>
+      </div>
 
+      <div class="container">
         <div class="content">
           <div class="grade-input-section">
             <h2 class="section-title">Enter Your Grades</h2>
+            <p>
+              Enter each transcript grade separately for the most accurate GPA.
+              The conversion formula is taken from the official
+              <a
+                href=" https://www.uottawa.ca/about-us/leadership-governance/policies-regulations/a-3-grading-system"
+                target="_blank"
+                >uOttawa guidelines</a
+              >
+            </p>
 
             <transition-group name="fade">
               <div
@@ -254,7 +264,7 @@
               >
                 <p>{{index + 1 }}</p>
                 <select v-model="grade.letter" class="grade-select">
-                  <option value="">Select Grade</option>
+                  <option value="">Grade</option>
                   <option
                     v-for="(value, letter) in gradeDisplay"
                     :key="letter"
@@ -264,17 +274,7 @@
                   </option>
                 </select>
 
-                <input class="course-name" placeholder="Course name" />
-
-                <input
-                  type="number"
-                  v-model.number="grade.credits"
-                  class="credit-input"
-                  placeholder="Credits"
-                  min="0.5"
-                  max="6"
-                  step="0.5"
-                />
+                <input class="course-name" placeholder="Course Name" />
 
                 <button
                   @click="removeGrade(index)"
@@ -305,7 +305,7 @@
         </div>
         <div class="footer">
           <p>
-            Made in 🇨🇦 by
+            Created by
             <a href="https://www.olesturchyn.com" target="_blank"
               >Oles Turchyn</a
             >
